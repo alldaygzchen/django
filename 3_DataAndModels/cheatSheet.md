@@ -177,3 +177,6 @@ https://dev.to/codereviewdoctor/why-queryset-exists-is-more-efficient-than-query
                         })
         5. Write html in template (models.py can be used)
                 e.g. <li><a href="{{ book.get_absolute_url }}">{{ book.title }}</a> (Rating: {{ book.rating }})</li>
+
+[Thoughts]
+        1. Web is all about listing all url and check in the url for more details or some crud
