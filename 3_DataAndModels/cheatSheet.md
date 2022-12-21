@@ -87,8 +87,10 @@ Bulk operation
 
 ***update*** 
 
-        https://stackoverflow.com/questions/22980448/django-objects-filter-is-not-updating-field-but-objects-get-is
-        https://docs.djangoproject.com/en/3.0/topics/db/queries/#when-querysets-are-not-cached
+https://stackoverflow.com/questions/22980448/django-objects-filter-is-not-updating-field-but-objects-get-is
+https://docs.djangoproject.com/en/3.0/topics/db/queries/#when-querysets-are-not-cached
+https://betterprogramming.pub/understanding-django-database-querysets-and-its-optimizations-1765cb9c36e5
+
         objs = Book.objects.filter(id__gt=13)
         myobjs = [i for i in objs] #evaluate and cache
         myobjs[0].title='this is the title 1'
@@ -108,7 +110,17 @@ Bulk operation
 
 Aggregation 
 
+        from django.db.models import Avg
+        from django.db.models import Max
+        b=Book.objects.all()
+        b.aggregate(Avg('rating')) 
+
+
+
 Order
+
+        b=Book.objects.all()
+        b.order_by('title','rating')
 
 
 
@@ -122,3 +134,46 @@ Order
     https://stackoverflow.com/questions/53318475/why-do-we-need-init-to-initialize-a-python-class
 6. Django validation is mostly application level validation and not validation at DB level.  
     https://stackoverflow.com/questions/40881708/django-model-validator-not-working-on-create
+7. Differnece between evaluation and cache  
+   e.g. print() evaluates but not cache
+8. b=Book.objects.all() & b._result_cache has value after iterating all value
+9. b=Book.objects.all() & b.exists & b.count  
+https://dev.to/codereviewdoctor/why-queryset-exists-is-more-efficient-than-queryset-count-2f3h 
+
+
+
+[Review]  
+
+        1. Define urls.py in book_store/urls.py
+        2. Define urls.py in book_outlet/urls.py
+        3. Write methods or attributes in book_outlet/models.py
+                e.g. methods and attribute is used in Book instance 
+        4. Define views.py in book_outlet/view.py (models.py can be used)
+
+                def index(request):
+                        books = Book.objects.all().order_by("-rating")
+                        num_books = books.count()
+                        avg_rating = books.aggregate(Avg("rating")) # rating__avg, rating__min
+
+                        return render(request, "book_outlet/index.html", {
+                        "books": books,
+                        "total_number_of_books": num_books,
+                        "average_rating": avg_rating
+                        })
+
+
+                        def book_detail(request, slug):
+                        # try:
+                        #   book = Book.objects.get(pk=id)
+                        # except:
+                        #   raise Http404()
+                        book = get_object_or_404(Book, slug=slug)
+                        #   book = get_object_or_404(Book, pk=id)
+                        return render(request, "book_outlet/book_detail.html", {
+                        "title": book.title,
+                        "author": book.author,
+                        "rating": book.rating,
+                        "is_bestseller": book.is_bestselling
+                        })
+        5. Write html in template (models.py can be used)
+                e.g. <li><a href="{{ book.get_absolute_url }}">{{ book.title }}</a> (Rating: {{ book.rating }})</li>
