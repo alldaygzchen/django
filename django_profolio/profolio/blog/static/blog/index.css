@@ -1,8 +1,8 @@
 #welcome {
-    background: linear-gradient(to right top, #6305dd, #390281);
-    padding: 6rem 12%;
+background: linear-gradient(to right top, #6305dd, #390281);
+padding: 6rem 12%;
 }
-  
+
 #welcome header {
 display: flex;
 align-items: flex-start;
@@ -52,6 +52,8 @@ margin: 0;
 padding: 0;
 display: flex;
 gap: 1rem;
+flex-wrap: wrap;
+align-items: baseline;
 }
 
 #latest-posts li {
