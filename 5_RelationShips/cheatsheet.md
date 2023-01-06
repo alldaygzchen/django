@@ -56,6 +56,9 @@
         models.CharField()
         models.IntegerField()
         models.SlugField()
+        models.DataField() # update every time if save is called
+        models.TextField()
+        models.EmailField()
 
     [python shell]
         1. the best thing of django ORM is querying data with variable
