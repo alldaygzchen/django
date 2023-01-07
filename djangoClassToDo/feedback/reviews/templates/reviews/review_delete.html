@@ -1,0 +1,12 @@
+{% extends "reviews/base.html" %}
+
+{% block title %}Delete Review{% endblock %}
+
+{% block content %}
+<p>Are you sure to Delete {{ review.user_name }} record</p>
+<form  method="POST">
+    {% csrf_token %}
+    <button type="submit" value="y" />
+
+  </form>
+{% endblock %}
