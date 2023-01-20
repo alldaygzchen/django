@@ -1,3 +1,7 @@
+# Counter session in Django
+create request.session["stored_posts"] and check post_id in stored_posts or stored_posts = None
+
+
 ### models.py (cross model query)
 
         post = models.ForeignKey(
@@ -32,7 +36,7 @@
         </div>
 
 
-### views.py (Deal with sessions)
+### views.py and post-detail.html (Deal with sessions)
 
                 class ReadLaterView(View):
                         def get(self, request):
@@ -64,4 +68,10 @@
                                 request.session["stored_posts"] = stored_posts
                                 
                                 return HttpResponseRedirect("/")
+
+                <form action="{% url "read-later" %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ post.id }}" name="post_id">
+                        <button>Read Later</button>
+                </form>
 
