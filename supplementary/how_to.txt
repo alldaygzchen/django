@@ -1,0 +1,10 @@
+1. how to filter selection in ui
+2. how to use user permission(multiple user types)
+3. how to login
+4. how to create crud table
+5. how to async
+6. how to connect database like postgres
+7. how to use rest api
+8. how to integrate react, vue frontend framework
+9. how to docker
+10 how to show different contact according different user
