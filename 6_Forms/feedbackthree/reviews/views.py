@@ -17,6 +17,15 @@ def review(request):
             form.save()
             return HttpResponseRedirect("/thank-you")
 
+    #update example
+    #  if request.method == 'POST':
+    #     existing_data = Review.object.get(pk=1)
+    #     form = ReviewForm(request.POST,instance = existing_data)
+
+    #     if form.is_valid():
+    #         form.save()
+    #         return HttpResponseRedirect("/thank-you")   
+
     else:
         form = ReviewForm()
 
